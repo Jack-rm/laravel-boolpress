@@ -13,7 +13,7 @@
             <h1>My Posts</h1>
             <a class="text-danger" href="{{route('admin.posts.create')}}">New Post</a>
         </header>
-
+        
         <table class="table table-bordered">
             <thead>
                 <th class="col">Title</th>

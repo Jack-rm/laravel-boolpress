@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="card p-3">
+        <div class="card p-5">
             <h1 class="card-title"> {{$post->title}} </h1>
             <address class="card-subtitle"> from {{ $post->author }} </address>
             <address class="card-subtitle date"> on {{ $post->getFormattedDate('post_date')}} </address>
