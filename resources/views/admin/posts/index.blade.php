@@ -14,9 +14,10 @@
             <a class="text-danger" href="{{route('admin.posts.create')}}">New Post</a>
         </header>
         
-        <table class="table table-bordered">
+        <table class="table table-bordered table-fit">
             <thead>
                 <th class="col">Title</th>
+                <th class="col">Category</th>
                 <th class="col">Author</th>
                 <th class="col">Date</th>
             </thead>
@@ -24,6 +25,15 @@
                 @forelse ($posts as $post)
                     <tr>
                         <td><a class="text-danger" href="{{ route('admin.posts.show', $post->id ) }}">{{ $post->title }}</a></td>
+                        
+                        <td>
+                            @if ($post->category)
+                            <span class="badge bg-info">{{ $post->category->name }}</span>
+                            @else
+                            <span class="badge bg-warning text-dark">None</span>
+                            @endif
+                        </td>
+
                         <td>{{ $post->author}}</td>
                         <td>{{ $post->getFormattedDate('post_date')}}</td>
                         <td><a href="{{ route('admin.posts.edit', $post ) }}" class="btn btn-secondary">Edit</a></td>

@@ -4,6 +4,13 @@
     <div class="container">
         <div class="card p-5">
             <h1 class="card-title"> {{$post->title}} </h1>
+            <address>
+                @if ($post->category)
+                    <span class="badge badge-info px-3"> {{ $post->category->name }}</span>
+                @else
+                    None
+                @endif
+            </address>
             <address class="card-subtitle"> from {{ $post->author }} </address>
             <address class="card-subtitle date"> on {{ $post->getFormattedDate('post_date')}} </address>
             <div class="card-body row">
