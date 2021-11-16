@@ -52,7 +52,7 @@ class PostController extends Controller
             'author' => 'required|string|max:100',
             'post_content' => 'required|string',
             'image_url' => 'string',
-            'category_id' => 'nullable|number'
+            'category_id' => 'nullable|numeric'
         ],
         [
             'required' => 'You need to compile :attribute correctly',
