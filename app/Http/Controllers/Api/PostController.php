@@ -67,6 +67,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::destroy($id);
+
+        return response('', 204);
+        // posso gestire la tipologia di errore -> 204 server ha accettato la richiesta ma non c'è nessun risultato.
     }
 }
