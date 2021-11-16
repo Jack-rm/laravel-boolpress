@@ -33,7 +33,7 @@ class PostController extends Controller
         $post = new Post();
 
         $categories = Category::all();
-        
+
         return view('admin.posts.create', compact('post', 'request','categories'));
     }
 
@@ -46,6 +46,22 @@ class PostController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+
+            'title' => 'required|string|unique:posts|max:100',
+            'author' => 'required|string|max:100',
+            'post_content' => 'required|string',
+            'image_url' => 'string',
+            'category_id' => 'nullable|number'
+        ],
+        [
+            'required' => 'You need to compile :attribute correctly',
+            'title.required' => 'You mast insert a title',
+            'author.max' => 'Author can have 100 char max',
+            'post_content.min' => 'Post has to be a string'
+        ]);
+        
+        
         $data = $request->all();
 
         $data['post_date'] = Carbon::now();
