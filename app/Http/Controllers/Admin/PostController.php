@@ -7,6 +7,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Post;
+use App\Models\Category;
 
 
 class PostController extends Controller
@@ -30,7 +31,10 @@ class PostController extends Controller
     public function create(Request $request)
     {
         $post = new Post();
-        return view('admin.posts.create', compact('post', 'request'));
+
+        $categories = Category::all();
+        
+        return view('admin.posts.create', compact('post', 'request','categories'));
     }
 
     /**

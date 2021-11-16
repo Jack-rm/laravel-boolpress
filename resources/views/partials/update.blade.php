@@ -20,9 +20,21 @@
                 </div>
     
                 <div class="form-group">
+                    <label for="category_id" class="form-label text-danger">Category </label>
+                    <br>
+                    <select name="category_id" id="category_Id">
+                        <option value="">None</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="author" class="form-label text-danger">Author</label>
                     <input class="form-control" type="text" id="author" name="author" placeholder="Author" value="{{ $post->author }}">
                 </div>
+
     
                 <div class="form-group">
                     <label for="post_content" class="form-label text-danger">Content</label>
