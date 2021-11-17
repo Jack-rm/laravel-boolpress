@@ -36,4 +36,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    // Testando se la magiMagia di laravel prende automaticamente l'id
+    public function userInfo(){
+
+        return $this->hasOne('App\Models\UserInfo');
+    }
+
+   // public function info(){
+       
+   //     return $this->hasOne('App\Models\UserInfo', 'user_id');
+   // }
 }
