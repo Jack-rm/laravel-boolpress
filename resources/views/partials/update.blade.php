@@ -34,10 +34,10 @@
                     <label for="category_id" class="form-label text-danger">Category </label>
                     <br>
                     <select name="category_id" id="category_Id">
-                        <option value="">None</option>
+                        <option value="">None</option>  <!-- Devo lasciare value="" altrimenti non potrei assegnare valore nullo alla category-->
                         
                         @foreach ($categories as $category)
-                            <option 
+                            <option
 
                             @if ( old('category_id') == $category->id) selected
                             @endif
@@ -49,13 +49,14 @@
                 </div>
 
                 @if($request->routeIs('admin.posts.edit')) 
+
                 <div class="form-group">
-                    <label for="user_id" class="form-label text-danger">Username </label>
+                    <label for="user_id" class="form-label text-danger">Author </label>
                     <br>
                     <select name="user_id" id="user_id">
                         
                         @foreach ($users as $user)
-                            <option value="{{$user->name }}">{{ $user->name }}</option>
+                            <option value="{{ $user->id }}"> {{ $user->name }}</option>
                         @endforeach
 
                     </select>

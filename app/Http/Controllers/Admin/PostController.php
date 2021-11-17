@@ -114,7 +114,6 @@ class PostController extends Controller
         $data = $request->all();
 
         $data['post_date'] = Carbon::now();
-        $data['user_id'] = Auth::user()->name;
 
         $post->fill($data);
         $post->slug = Str::slug($post->title, '-');
