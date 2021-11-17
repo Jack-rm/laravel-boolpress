@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Post;
 use App\Models\Category;
+use App\User;
 
 
 class PostController extends Controller
@@ -49,7 +52,6 @@ class PostController extends Controller
         $request->validate([
 
             'title' => 'required|string|unique:posts|max:100',
-            'author' => 'required|string|max:100',
             'post_content' => 'required|string',
             'image_url' => 'string',
             'category_id' => 'nullable|numeric'
@@ -57,12 +59,13 @@ class PostController extends Controller
         [
             'required' => 'You need to compile :attribute correctly',
             'title.required' => 'You mast insert a title',
-            'author.max' => 'Author can have 100 char max',
             'post_content.min' => 'Post has to be a string'
         ]);
         
         
         $data = $request->all();
+
+        $data['user_id'] = Auth::user()->id;
 
         $data['post_date'] = Carbon::now();
 
@@ -94,8 +97,9 @@ class PostController extends Controller
     public function edit(Post $post, Request $request)
     {
         $categories = Category::all();
+        $users = User::all();
 
-        return view("admin.posts.edit", compact('post', 'request', 'categories'));
+        return view("admin.posts.edit", compact('post', 'request', 'categories','users'));
     }
 
     /**
@@ -110,6 +114,7 @@ class PostController extends Controller
         $data = $request->all();
 
         $data['post_date'] = Carbon::now();
+        $data['user_id'] = Auth::user()->name;
 
         $post->fill($data);
         $post->slug = Str::slug($post->title, '-');

@@ -48,10 +48,20 @@
                     </select>
                 </div>
 
+                @if($request->routeIs('admin.posts.edit')) 
                 <div class="form-group">
-                    <label for="author" class="form-label text-danger">Author</label>
-                    <input class="form-control" type="text" id="author" name="author" placeholder="Author" value="{{ old('author', $post->author) }}">
+                    <label for="user_id" class="form-label text-danger">Username </label>
+                    <br>
+                    <select name="user_id" id="user_id">
+                        
+                        @foreach ($users as $user)
+                            <option value="{{$user->name }}">{{ $user->name }}</option>
+                        @endforeach
+
+                    </select>
                 </div>
+        
+                @endif
 
     
                 <div class="form-group">

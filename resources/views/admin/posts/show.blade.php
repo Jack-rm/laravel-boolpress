@@ -8,10 +8,10 @@
                 @if ($post->category)
                     <span class="badge badge-info px-3"> {{ $post->category->name }}</span>
                 @else
-                    None
+                    <span class="badge bg-warning text-dark">None</span>
                 @endif
             </address>
-            <address class="card-subtitle"> from {{ $post->author }} </address>
+            <address class="card-subtitle"> from <b>{{ $post->user->name }}</b> </address>
             <address class="card-subtitle date"> on {{ $post->getFormattedDate('post_date')}} </address>
             <div class="card-body row">
                 <div class="col-4">

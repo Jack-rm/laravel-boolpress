@@ -34,7 +34,8 @@
                             @endif
                         </td>
 
-                        <td>{{ $post->author}}</td>
+                        <td>{{ $post->user->name}}</td> <!-- Richiamo il nome del singolo user per via del collegamento one to one -->
+
                         <td>{{ $post->getFormattedDate('post_date')}}</td>
                         <td><a href="{{ route('admin.posts.edit', $post ) }}" class="btn btn-secondary">Edit</a></td>
                         <td>
