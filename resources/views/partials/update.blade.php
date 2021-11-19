@@ -39,7 +39,9 @@
                         @foreach ($categories as $category)
                             <option
 
-                            @if ( old('category_id') == $category->id) selected
+                            @if (old('category_id') == $category->id)
+                            @elseif ( $category->id == $post->category_id )
+                             selected
                             @endif
                             
                             value="{{ $category->id }}">{{ $category->name }}</option>
@@ -56,7 +58,9 @@
                     <select name="user_id" id="user_id">
                         
                         @foreach ($users as $user)
-                            <option value="{{ $user->id }}"> {{ $user->name }}</option>
+                            <option value="{{ $user->id }}"
+                            {{ $user->id == $post->user_id ? 'selected' : '' }}> {{ $user->name }}
+                            </option>
                         @endforeach
 
                     </select>
