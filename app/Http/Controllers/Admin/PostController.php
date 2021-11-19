@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\Category;
 use App\User;
+use App\Models\Tag;
 
 
 class PostController extends Controller
@@ -36,8 +37,9 @@ class PostController extends Controller
         $post = new Post();
 
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.create', compact('post', 'request','categories'));
+        return view('admin.posts.create', compact('post', 'request','categories','tags'));
     }
 
     /**
@@ -74,6 +76,12 @@ class PostController extends Controller
         $post->slug = Str::slug($post->title, '-');
         $post->save();
 
+        // Dopo la save poichè è necessario che esista il post prima
+        if (array_key_exists('tags', $data))
+            $post->tags()->sync($data['tags']);  // in questo caso ogni id ha tot tags quindi tags è un array
+        // Scelgo sync per ottimizzazione invece di Attach() e Deatch()
+        // Sync mi permette di avere nell'array solo gli elementi di data, eliminando i non richiesti ogni volta.
+
         return redirect()->route('admin.posts.show', compact('post'));
     }
 
@@ -98,8 +106,9 @@ class PostController extends Controller
     {
         $categories = Category::all();
         $users = User::all();
+        $tags = Tag::all();
 
-        return view("admin.posts.edit", compact('post', 'request', 'categories','users'));
+        return view("admin.posts.edit", compact('post', 'request', 'categories','users', 'tags'));
     }
 
     /**
@@ -118,6 +127,12 @@ class PostController extends Controller
         $post->fill($data);
         $post->slug = Str::slug($post->title, '-');
         $post->update();
+
+
+        //Esattamente come in store implemento la linea di codice dopo la chiamata update()
+
+        if (array_key_exists('tags', $data))
+            $post->tags()->sync($data['tags']);
 
         return redirect()->route('admin.posts.show', compact('post'));
 
