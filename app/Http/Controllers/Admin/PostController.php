@@ -127,7 +127,7 @@ class PostController extends Controller
     {
         $request->validate([
 
-            'title' => 'required|string|unique:posts|max:100',
+            'title' => 'required|string|max:100',
             'post_content' => 'required|string',
             'image_url' => 'string',
             'category_id' => 'nullable|numeric'
