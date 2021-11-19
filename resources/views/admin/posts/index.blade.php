@@ -18,6 +18,7 @@
             <thead>
                 <th class="col">Title</th>
                 <th class="col">Category</th>
+                <th class="col">Tags</th>
                 <th class="col">Author</th>
                 <th class="col">Date</th>
             </thead>
@@ -33,6 +34,16 @@
                             <span class="badge bg-warning text-dark">None</span>
                             @endif
                         </td>
+
+                        <td>
+                            @forelse ($post->tags as $tag)
+                            
+                                <span class="bagde badge-pill text-light" style="background-color: {{ $tag->color}} ">{{ $tag->name }}</span>
+                            @empty
+                                <span class="badge bg-warning text-dark">No Tags</span>
+                            @endforelse
+                        </td>
+                            
 
                         <td>{{ $post->user->name}}</td> <!-- Richiamo il nome del singolo user per via del collegamento one to one -->
 

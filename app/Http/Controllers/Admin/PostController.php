@@ -38,8 +38,9 @@ class PostController extends Controller
 
         $categories = Category::all();
         $tags = Tag::all();
+        $tagIds = $post->tags->pluck('id')->toArray();
 
-        return view('admin.posts.create', compact('post', 'request','categories','tags'));
+        return view('admin.posts.create', compact('post', 'request','categories','tags', 'tagIds'));
     }
 
     /**
@@ -60,7 +61,7 @@ class PostController extends Controller
         ],
         [
             'required' => 'You need to compile :attribute correctly',
-            'title.required' => 'You mast insert a title',
+            'title.required' => 'Title cannot be empty',
             'post_content.min' => 'Post has to be a string'
         ]);
         
@@ -108,7 +109,11 @@ class PostController extends Controller
         $users = User::all();
         $tags = Tag::all();
 
-        return view("admin.posts.edit", compact('post', 'request', 'categories','users', 'tags'));
+        // Processo di logica la cui necessità è nata nel view ma che è giusto sia nel controller
+        // Prendo la lista degli id dei tag per il singolo post esprimendola in array
+        $tagIds = $post->tags->pluck('id')->toArray();
+
+        return view("admin.posts.edit", compact('post', 'request', 'categories','users', 'tags', 'tagIds'));
     }
 
     /**
@@ -120,6 +125,19 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $request->validate([
+
+            'title' => 'required|string|unique:posts|max:100',
+            'post_content' => 'required|string',
+            'image_url' => 'string',
+            'category_id' => 'nullable|numeric'
+        ],
+        [
+            'required' => 'You need to compile :attribute correctly',
+            'title.required' => 'Title cannot be empty',
+            'post_content.min' => 'Post has to be a string'
+        ]);
+
         $data = $request->all();
 
         $data['post_date'] = Carbon::now();

@@ -40,14 +40,32 @@
                             <option
 
                             @if (old('category_id') == $category->id)
-                            @elseif ( $category->id == $post->category_id )
                              selected
                             @endif
                             
-                            value="{{ $category->id }}">{{ $category->name }}</option>
+                            value="{{ $category->id }}"
+                            {{ $category->id == $post->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
                         @endforeach
 
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label text-danger h">Tags</label>
+                    <br>
+                    <div class="form-check form-check-inline">    
+
+                        @foreach ($tags as $tag)
+                            <input type="checkbox" class="form-check-input mx-2" id="tag-{{ $tag->id }}"
+                            value="{{ $tag->id }}" name="tags[]"
+                            
+                            @if ( in_array( $tag->id, old("tags", $tagIds ? $tagIds : [] )) )
+                             checked
+                            @endif >
+                            
+                            <label class="form-check-label me-2" for="tag-{{$tag->id}}">{{$tag->name}}</label>    
+                        @endforeach
+                    </div>
                 </div>
 
                 @if($request->routeIs('admin.posts.edit')) 

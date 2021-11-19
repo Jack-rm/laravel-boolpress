@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="card p-5">
-            <h1 class="card-title"> {{$post->title}} </h1>
+            <h1 class="card-title text-danger"> {{$post->title}} </h1>
             <address>
                 @if ($post->category)
                     <span class="badge badge-info px-3"> {{ $post->category->name }}</span>
@@ -13,6 +13,13 @@
             </address>
             <address class="card-subtitle"> from <b>{{ $post->user->name }}</b> </address>
             <address class="card-subtitle date"> on {{ $post->getFormattedDate('post_date')}} </address>
+            <address>
+                @forelse ($post->tags as $tag)
+                    <span class="bagde badge-pill text-light" style="background-color: {{ $tag->color}} ">{{ $tag->name }}</span>
+                @empty
+                    <span class="badge bg-warning text-dark">No Tags</span>
+                @endforelse
+            </address>
             <div class="card-body row">
                 <div class="col-4">
                     <img class="img-fluid" src="{{$post->image_url}}" alt="{{$post->title}} image">
