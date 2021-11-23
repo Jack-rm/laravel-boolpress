@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             CategoriesTableSeeder::class,
             TagsTableSeeder::class,
             PostsTableSeeder::class,
+            PostTagTableSeeder::class,
         ]);
     }
 }

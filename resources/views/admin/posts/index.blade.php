@@ -66,6 +66,11 @@
             </tbody>
         </table>
         
+        <footer>
+            <div class="d-flex flex-row-reverse pt-2">
+                {{ $posts->links() }}
+            </div>
+        </footer>
 
     </div>
 @endsection
