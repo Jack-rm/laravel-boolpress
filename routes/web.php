@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'Guests\HomeController@index')->name('guests.home');
 
-Route::get('/home', 'Guests\HomeController@index')->name('guests.home');
-
 Auth::routes();
 
 Route::middleware('auth')->namespace("Admin")->prefix('admin')->name('admin.')->group(function(){
@@ -24,3 +22,8 @@ Route::middleware('auth')->namespace("Admin")->prefix('admin')->name('admin.')->
         Route::resource('posts', PostController::class);
         Route::resource('users', UserController::class);
 });
+
+//Reindirizzo tutte le rotte non specificate e che terminano con qualsiasi carattere verso la home dei guests
+Route::get("{any?}", function(){
+        return view('guests.home');
+    })->where("any", ".*");
