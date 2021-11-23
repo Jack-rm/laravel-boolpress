@@ -17,11 +17,16 @@ Route::get('/', 'Guests\HomeController@index')->name('guests.home');
 
 Auth::routes();
 
+Route::resource('posts', PostController::class)->only([
+        "index", "show"
+]);
+
 Route::middleware('auth')->namespace("Admin")->prefix('admin')->name('admin.')->group(function(){
         Route::get('/', 'HomeController@index')->name('home');
         Route::resource('posts', PostController::class);
         Route::resource('users', UserController::class);
 });
+
 
 //Reindirizzo tutte le rotte non specificate e che terminano con qualsiasi carattere verso la home dei guests
 Route::get("{any?}", function(){
