@@ -7,11 +7,13 @@ use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 use App\Models\Post;
 use App\Models\Category;
 use App\User;
 use App\Models\Tag;
+
 
 
 class PostController extends Controller
@@ -127,10 +129,12 @@ class PostController extends Controller
     {
         $request->validate([
 
-            'title' => 'required|string|max:100',
+            'title' => ['required','string','max:100',
+                            Rule::unique('posts')->ignore($post->id)],  //gli dico di ignorare il post con l'id corrente così da poter modificare rimettendo il titolo precedente
             'post_content' => 'required|string',
             'image_url' => 'string',
-            'category_id' => 'nullable|numeric'
+            'category_id' => 'nullable|exists:categories,id', //deve esistere nella tabella categorie con la colonna ID
+            "tags" => 'nullable|exists:tags,id'
         ],
         [
             'required' => 'You need to compile :attribute correctly',

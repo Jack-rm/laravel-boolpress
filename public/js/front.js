@@ -2380,6 +2380,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostList',
@@ -2391,16 +2411,20 @@ __webpack_require__.r(__webpack_exports__);
       posts: [],
       users: [],
       baseUri: 'http://127.0.0.1:8000',
-      isLoading: false
+      isLoading: false,
+      currentPage: 1,
+      lastPage: null
     };
   },
   methods: {
-    getPostList: function getPostList() {
+    getPostList: function getPostList(page) {
       var _this = this;
 
       this.isLoading = true;
-      axios.get("".concat(this.baseUri, "/api/posts/")).then(function (res) {
-        _this.posts = res.data.posts;
+      axios.get("".concat(this.baseUri, "/api/posts/?page=").concat(page)).then(function (res) {
+        _this.posts = res.data.data;
+        _this.currentPage = res.data.current_page;
+        _this.lastPage = res.data.last_page;
       })["catch"](function (err) {
         console.error(err);
       }).then(function () {
@@ -3030,6 +3054,62 @@ var render = function () {
               attrs: { post: post },
             })
           }),
+      _vm._v(" "),
+      _c("nav", { attrs: { "aria-label": "Page navigation example" } }, [
+        _c(
+          "ul",
+          { staticClass: "pagination" },
+          [
+            _vm.currentPage > 1
+              ? _c(
+                  "li",
+                  {
+                    staticClass: "page-item",
+                    on: {
+                      click: function ($event) {
+                        return _vm.getPostList(_vm.currentPage - 1)
+                      },
+                    },
+                  },
+                  [_vm._m(1)]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm._l(_vm.lastPage, function (n) {
+              return _c(
+                "li",
+                {
+                  key: n,
+                  staticClass: "page-item",
+                  class: { active: n === _vm.currentPage },
+                  on: {
+                    click: function ($event) {
+                      return _vm.getPostList(n)
+                    },
+                  },
+                },
+                [_c("a", { staticClass: "page-link" }, [_vm._v(_vm._s(n))])]
+              )
+            }),
+            _vm._v(" "),
+            _vm.currentPage < _vm.lastPage
+              ? _c(
+                  "li",
+                  {
+                    staticClass: "page-item",
+                    on: {
+                      click: function ($event) {
+                        return _vm.getPostList(_vm.currentPage + 1)
+                      },
+                    },
+                  },
+                  [_vm._m(2)]
+                )
+              : _vm._e(),
+          ],
+          2
+        ),
+      ]),
     ],
     2
   )
@@ -3043,6 +3123,34 @@ var staticRenderFns = [
       "div",
       { staticClass: "spinner-border text-info ", attrs: { role: "status" } },
       [_c("span", { staticClass: "sr-only" }, [_vm._v("Loading...")])]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "page-link", attrs: { "aria-label": "Previous" } },
+      [
+        _c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("«")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "sr-only" }, [_vm._v("Previous")]),
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "page-link", attrs: { "aria-label": "Next" } },
+      [
+        _c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("»")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "sr-only" }, [_vm._v("Next")]),
+      ]
     )
   },
 ]
