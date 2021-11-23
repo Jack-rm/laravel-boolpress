@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
             
             // E' importante scriverli come array e con un ordine che segua la logica delle relazioni tra le varie tabelle
             UsersTableSeeder::class,
+            RolesTableSeeder::class,
+            RoleUserSeeder::class,
             CategoriesTableSeeder::class,
             TagsTableSeeder::class,
             PostsTableSeeder::class,

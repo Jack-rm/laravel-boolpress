@@ -49,4 +49,14 @@ class User extends Authenticatable
        
    //     return $this->hasOne('App\Models\UserInfo', 'user_id');
    // }
+
+   public function roles(){
+
+    return $this->belongsToMany('App\Models\Role');
+   }
+
+   public function posts(){
+
+    return $this->hasMany('App\Models\Post');
+   }
 }
