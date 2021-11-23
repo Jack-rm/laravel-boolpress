@@ -26,7 +26,7 @@ class RolesTableSeeder extends Seeder
 
         $role = new Role();
         $role->rank = 1;
-        $role->name = 'Super Admin';
+        $role->name = 'SuperAdmin';
         $role->color = $faker->safeHexColor();
         $role->save();
 

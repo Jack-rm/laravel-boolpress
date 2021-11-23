@@ -21,7 +21,6 @@ class RoleUserSeeder extends Seeder
         foreach ($users as $user){
 
             $user->roles()->sync([Arr::random($role_ids)]);
-            //Sync con due argomenti, poichè differentemente da attach e detach rimuove automaticamente i doppioni
         };
     }
 }
