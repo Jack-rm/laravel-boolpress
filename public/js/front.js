@@ -3008,7 +3008,7 @@ var render = function () {
         _c("footer", { staticClass: "blockquote-footer" }, [
           _vm._v("\n                Scritto da "),
           _c("cite", { attrs: { title: "Source Title" } }, [
-            _vm._v(_vm._s(_vm.post.user_id)),
+            _c("b", [_vm._v(_vm._s(_vm.post.user.name))]),
           ]),
           _vm._v("\n                il "),
           _c("time", [_vm._v(_vm._s(_vm.post.post_date))]),

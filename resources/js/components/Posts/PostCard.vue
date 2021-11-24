@@ -6,7 +6,7 @@
                 <p> {{ post.post_content }} </p>
                 
                 <footer class="blockquote-footer">
-                    Scritto da <cite title="Source Title">{{ post.user_id }}</cite>
+                    Scritto da <cite title="Source Title"><b>{{ post.user.name }}</b></cite>
                     il <time>{{ post.post_date }}</time>
                 </footer>
             </blockquote>

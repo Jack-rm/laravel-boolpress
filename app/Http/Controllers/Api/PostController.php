@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\User;
 
 class PostController extends Controller
 {
@@ -15,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data = Post::paginate(5);
+        $data = Post::with('user')->paginate(5);
 
         return response()->json($data); // check api call -> res.data.data
     }
