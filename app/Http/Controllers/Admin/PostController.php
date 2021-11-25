@@ -14,6 +14,8 @@ use App\Models\Category;
 use App\User;
 use App\Models\Tag;
 
+use Illuminate\Support\Facades\Storage;
+
 
 
 class PostController extends Controller
@@ -58,7 +60,7 @@ class PostController extends Controller
 
             'title' => 'required|string|unique:posts|max:100',
             'post_content' => 'required|string',
-            'image_url' => 'string',
+            'image' => 'image',
             'category_id' => 'nullable|numeric'
         ],
         [
@@ -73,6 +75,8 @@ class PostController extends Controller
         $data['user_id'] = Auth::user()->id;
 
         $data['post_date'] = Carbon::now();
+
+        $data['image_url'] = Storage::put('posts/images', $data['image']);
 
         $post = new Post();
         $post->fill($data);
@@ -132,7 +136,7 @@ class PostController extends Controller
             'title' => ['required','string','max:100',
                             Rule::unique('posts')->ignore($post->id)],  //gli dico di ignorare il post con l'id corrente così da poter modificare rimettendo il titolo precedente
             'post_content' => 'required|string',
-            'image_url' => 'string',
+            'image' => 'image',
             'category_id' => 'nullable|exists:categories,id', //deve esistere nella tabella categorie con la colonna ID
             "tags" => 'nullable|exists:tags,id'
         ],
@@ -145,6 +149,8 @@ class PostController extends Controller
         $data = $request->all();
 
         $data['post_date'] = Carbon::now();
+
+        $data['image_url'] = Storage::put('posts/images', $data['image']);
 
         $post->fill($data);
         $post->slug = Str::slug($post->title, '-');

@@ -22,7 +22,7 @@
             </address>
             <div class="card-body row">
                 <div class="col-4">
-                    <img class="img-fluid" src="{{$post->image_url}}" alt="{{$post->title}} image">
+                    <img class="img-fluid" src="{{ $post->getImagePrefix() . $post->image_url }}" alt="{{$post->title}} image">
                 </div>
                 <div class="col-8">
                     <p> {{$post->post_content}} </p>

@@ -16,7 +16,7 @@
                 </div>
             @endif
 
-            <form action="{{  $request->routeIs('admin.posts.edit') ? route('admin.posts.update', $post) : route('admin.posts.store') }}" method="POST">
+            <form action="{{  $request->routeIs('admin.posts.edit') ? route('admin.posts.update', $post) : route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
             
             @if($request->routeIs('admin.posts.edit')) 
             
@@ -93,8 +93,8 @@
                 </div>
     
                 <div class="form-group">
-                    <label for="image_url" class="form-label text-danger">Image</label>
-                    <input class="form-control" type="text" id="image_url" name="image_url" placeholder="URL Image" required value="{{ old('image_url', $post->image_url) }}">
+                    <label for="image" class="form-label text-danger">Image</label>
+                    <input class="form-control" type="file" id="image" name="image" placeholder="Upload or insert url Image" required value="{{ old('image', $post->image_url) }}" required>
                 </div>
     
                 <div class="card-footer mt-5 d-flex justify-content-between">
